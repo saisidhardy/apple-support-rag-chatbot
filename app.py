@@ -1,7 +1,6 @@
 import os
 import sys
 import streamlit as st
-import time
 
 # Ensure root directory is accessible
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -9,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from rag.pipeline import AppleRAGPipeline
 
 st.set_page_config(
-    page_title="Apple Genius AI | Top-Tier Support & Discovery RAG",
+    page_title="Apple Genius AI | Support & Discovery",
     page_icon="🍎",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -18,7 +17,7 @@ st.set_page_config(
 # Ultra-Premium Cupertino Glassmorphism & Dark Aesthetic CSS
 st.markdown("""
 <style>
-    /* Global Styles */
+    /* Global SF Pro Typography */
     @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
     
     html, body, [class*="css"] {
@@ -40,7 +39,7 @@ st.markdown("""
 
     /* Centered, Optimal Conversational Layout */
     .main .block-container {
-        max-width: 980px !important;
+        max-width: 960px !important;
         margin: 0 auto !important;
         padding-top: 1.5rem !important;
         padding-bottom: 5rem !important;
@@ -99,53 +98,6 @@ st.markdown("""
         100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
-    /* Badges & Metrics */
-    .metric-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 8px;
-        padding: 4px 10px;
-        font-size: 12px;
-        color: #cbd5e1;
-    }
-    .metric-bold {
-        font-weight: 700;
-        color: #38bdf8;
-    }
-
-    .accuracy-pill {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-        padding: 4px 10px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .source-tag {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 6px;
-        padding: 2px 8px;
-        font-size: 11px;
-        color: #a1a1a6;
-        margin-right: 6px;
-    }
-
-    .fallback-tag {
-        background: rgba(239, 68, 68, 0.15);
-        border: 1px solid rgba(239, 68, 68, 0.4);
-        color: #f87171;
-        padding: 4px 10px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
     /* Message Bubbles */
     .stChatMessage {
         background: rgba(255, 255, 255, 0.02) !important;
@@ -158,90 +110,46 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Cache Pipeline Instance with Advanced Re-Ranker
+# Cache Pipeline Instance with Best Re-Ranking Engine Locked as Default
 @st.cache_resource(show_spinner=False)
-def get_advanced_rag_pipeline(retrieval_mode: str, generator_backend: str, top_k: int):
+def get_advanced_rag_pipeline():
     return AppleRAGPipeline(
-        retrieval_mode=retrieval_mode,
-        generator_backend=generator_backend,
-        top_k=top_k
+        retrieval_mode="hybrid_rerank",
+        generator_backend="ollama",
+        top_k=4
     )
 
 # Top Hero Bar
 st.markdown("""
 <div class="apple-hero">
     <div>
-        <div class="apple-glow-text">🍎 Apple Genius AI Support Assistant</div>
+        <div class="apple-glow-text">🍎 Apple Genius AI</div>
         <div style="color: #86868b; font-size: 13px; margin-top: 4px;">
-            Grounded Product Intelligence • Hardware Specs • AppleCare+ & Return Protocols
+            Official Technical & Support Advisor for Apple Products & Services
         </div>
     </div>
     <div style="text-align: right;">
         <div class="apple-intelligence-pill">
             <span class="pulse-dot"></span>
-            99.4% GROUNDED ACCURACY
+            APPLE INTELLIGENCE
         </div>
         <div style="color: #64748b; font-size: 11px; margin-top: 6px;">
-            Two-Stage Re-Ranking • Self-Correction Verifier
+            Grounded & Verified Support
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Compact Top Status & Control Bar (No Sidebar)
-stat_col1, stat_col2, stat_col3, stat_col4 = st.columns([2, 2, 2, 1.2])
-
-with stat_col1:
-    st.markdown('<div class="metric-badge">🎯 Accuracy: <span class="metric-bold">99.4%</span> (Grounded)</div>', unsafe_allow_html=True)
-with stat_col2:
-    st.markdown('<div class="metric-badge">📚 Knowledge Base: <span class="metric-bold">256</span> Chunks</div>', unsafe_allow_html=True)
-with stat_col3:
-    st.markdown('<div class="metric-badge">⚡ Latency: <span class="metric-bold">&lt;25ms</span> Retrieval</div>', unsafe_allow_html=True)
-with stat_col4:
+# Quick Prompts & Reset Header
+col_head1, col_head2 = st.columns([5, 1])
+with col_head1:
+    st.markdown("##### ⚡ Quick Prompts")
+with col_head2:
     if st.button("🗑️ Clear Chat", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
 
-# Sleek Collapsible Settings for Evaluators/Users (Default: 99% Precision Mode)
-with st.expander("⚙️ Pipeline Architecture & Model Preferences", expanded=False):
-    cfg_col1, cfg_col2, cfg_col3 = st.columns(3)
-    with cfg_col1:
-        mode_options = [
-            "👑 Two-Stage Hybrid + Cross-Encoder Re-Ranker (99% Precision)",
-            "🔍 Multi-Intent Query Decomposition RAG",
-            "⚡ Fast Hybrid RAG (BM25 + FAISS RRF)",
-            "🎯 Baseline Semantic RAG (Pure Dense FAISS)"
-        ]
-        mode_selection = st.selectbox("Pipeline Architecture:", mode_options, index=0)
-        mode_mapping = {
-            "👑 Two-Stage Hybrid + Cross-Encoder Re-Ranker (99% Precision)": "hybrid_rerank",
-            "🔍 Multi-Intent Query Decomposition RAG": "decomposed",
-            "⚡ Fast Hybrid RAG (BM25 + FAISS RRF)": "hybrid",
-            "🎯 Baseline Semantic RAG (Pure Dense FAISS)": "baseline"
-        }
-        selected_mode = mode_mapping[mode_selection]
-
-    with cfg_col2:
-        backend_options = [
-            "🤖 Local Ollama (qwen3.5:4b)",
-            "⚡ Local High-Precision Synthesizer (Instant Grounded)",
-            "☁️ Google Gemini API",
-            "☁️ OpenAI GPT-4o"
-        ]
-        backend_selection = st.selectbox("LLM Engine:", backend_options, index=0)
-        backend_mapping = {
-            "🤖 Local Ollama (qwen3.5:4b)": "ollama",
-            "⚡ Local High-Precision Synthesizer (Instant Grounded)": "extractive",
-            "☁️ Google Gemini API": "gemini",
-            "☁️ OpenAI GPT-4o": "openai"
-        }
-        selected_backend = backend_mapping[backend_selection]
-
-    with cfg_col3:
-        top_k = st.slider("Context Depth (Top-K Chunks):", min_value=2, max_value=8, value=4)
-
-# Quick Discovery Carousel
-st.markdown("##### ⚡ Quick Discovery & Evaluation Prompts")
+# Quick Discovery Grid
 qcol1, qcol2, qcol3, qcol4 = st.columns(4)
 
 with qcol1:
@@ -265,7 +173,7 @@ with qcol3:
 with qcol4:
     if st.button("🎧 AirPods Pro 2 Hearing", use_container_width=True):
         st.session_state["prompt_input"] = "What is the new FDA-authorized Hearing Aid feature on AirPods Pro 2, and are they water resistant?"
-    if st.button("🚫 Out-of-Scope (Samsung)", use_container_width=True):
+    if st.button("🚫 Out-of-Scope Test", use_container_width=True):
         st.session_state["prompt_input"] = "What is the battery capacity and camera megapixel count of the Samsung Galaxy S24 Ultra?"
 
 st.markdown("---")
@@ -278,10 +186,9 @@ if "messages" not in st.session_state or not st.session_state.messages:
             "content": (
                 "👋 **Welcome to Apple Genius AI.**\n\n"
                 "I am your official technical advisor grounded strictly in Apple's verified product catalog, hardware specifications, "
-                "AppleCare+ coverage terms, store return guidelines, and emergency troubleshooting protocols.\n\n"
+                "AppleCare+ coverage terms, store return guidelines, and troubleshooting protocols.\n\n"
                 "**How can I assist you with your Apple devices today?**"
             ),
-            "metadata": None,
             "follow_ups": [
                 "What is the battery life and price of MacBook Air M3?",
                 "Compare iPhone 16 and iPhone 16 Pro cameras",
@@ -296,44 +203,9 @@ for idx, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"], avatar="🍎" if is_assistant else "👤"):
         st.markdown(msg["content"])
 
-        # Display Top-Tier Metadata Badges
-        if msg.get("metadata"):
-            meta = msg["metadata"]
-            meta_cols = st.columns([2, 1, 1, 2])
-            
-            with meta_cols[0]:
-                acc_label = meta.get("grounded_accuracy", "99.4%")
-                st.markdown(f"<span class='accuracy-pill'>🎯 {acc_label} Grounded</span>", unsafe_allow_html=True)
-            with meta_cols[1]:
-                st.markdown(f"<span class='source-tag'>⚡ {meta.get('latency', {}).get('total_ms', 0)}ms</span>", unsafe_allow_html=True)
-            with meta_cols[2]:
-                st.markdown(f"<span class='source-tag'>{meta.get('backend', '')}</span>", unsafe_allow_html=True)
-            with meta_cols[3]:
-                if meta.get("is_fallback"):
-                    st.markdown("<span class='fallback-tag'>⚠️ Guardrail Refusal</span>", unsafe_allow_html=True)
-                else:
-                    st.markdown("<span class='source-tag'>🔒 Verified Context</span>", unsafe_allow_html=True)
-
-            # Deep Evidence Matrix Expander
-            if meta.get("chunks"):
-                with st.expander(f"🔍 Inspect Verified Evidence Chunks ({len(meta['chunks'])} Retrieved Citations)"):
-                    if meta.get("resolved_query") and meta.get("resolved_query") != meta.get("query"):
-                        st.info(f"**Multi-Turn Resolved Query:** `{meta['resolved_query']}`")
-                    if meta.get("subqueries"):
-                        st.markdown(f"**Decomposed Sub-queries:** `{', '.join(meta['subqueries'])}`")
-                    
-                    for ci, ch in enumerate(meta["chunks"], start=1):
-                        st.markdown(
-                            f"**[{ci}] {ch.get('name')}** • "
-                            f"`{ch.get('category')}` • "
-                            f"*Section:* `{ch.get('section')}` • "
-                            f"*Re-Rank Confidence:* **{ch.get('confidence_pct', '99.1%')}**"
-                        )
-                        st.code(ch.get("text"), language="markdown")
-
         # Render Dynamic Follow-Up Buttons
         if is_assistant and msg.get("follow_ups"):
-            st.markdown("<div style='font-size: 11px; color: #86868b; margin-top: 8px;'>Suggested Next Steps:</div>", unsafe_allow_html=True)
+            st.markdown("<div style='font-size: 11px; color: #86868b; margin-top: 8px;'>Suggested Questions:</div>", unsafe_allow_html=True)
             fcols = st.columns(len(msg["follow_ups"]))
             for fi, fq in enumerate(msg["follow_ups"]):
                 with fcols[fi]:
@@ -356,62 +228,16 @@ if user_input:
 
     # Execute RAG Pipeline with High-Precision Multi-Stage Engine
     with st.chat_message("assistant", avatar="🍎"):
-        with st.spinner("Processing with Two-Stage Re-Ranker & Self-Correction Verifier..."):
-            pipeline = get_advanced_rag_pipeline(
-                retrieval_mode=selected_mode,
-                generator_backend=selected_backend,
-                top_k=top_k
-            )
+        with st.spinner("Thinking..."):
+            pipeline = get_advanced_rag_pipeline()
             result = pipeline.query(user_input)
 
         st.markdown(result["answer"])
-
-        meta_info = {
-            "query": result["query"],
-            "resolved_query": result.get("resolved_query"),
-            "mode": result["retrieval_mode"],
-            "backend": result["generator_backend"],
-            "is_fallback": result["is_fallback"],
-            "grounded_accuracy": result["grounded_accuracy"],
-            "latency": result["latency"],
-            "chunks": result["retrieved_chunks"],
-            "subqueries": result["subqueries"]
-        }
-
-        # Render Live Badges
-        meta_cols = st.columns([2, 1, 1, 2])
-        with meta_cols[0]:
-            st.markdown(f"<span class='accuracy-pill'>🎯 {result['grounded_accuracy']} Grounded</span>", unsafe_allow_html=True)
-        with meta_cols[1]:
-            st.markdown(f"<span class='source-tag'>⚡ {result['latency']['total_ms']}ms</span>", unsafe_allow_html=True)
-        with meta_cols[2]:
-            st.markdown(f"<span class='source-tag'>{result['generator_backend']}</span>", unsafe_allow_html=True)
-        with meta_cols[3]:
-            if result["is_fallback"]:
-                st.markdown("<span class='fallback-tag'>⚠️ Guardrail Refusal</span>", unsafe_allow_html=True)
-            else:
-                st.markdown("<span class='source-tag'>🔒 Verified Context</span>", unsafe_allow_html=True)
-
-        if result["retrieved_chunks"]:
-            with st.expander(f"🔍 Inspect Verified Evidence Chunks ({len(result['retrieved_chunks'])} Retrieved Citations)"):
-                if result.get("resolved_query") and result.get("resolved_query") != result.get("query"):
-                    st.info(f"**Multi-Turn Resolved Query:** `{result['resolved_query']}`")
-                if result.get("subqueries"):
-                    st.markdown(f"**Decomposed Sub-queries:** `{', '.join(result['subqueries'])}`")
-                for ci, ch in enumerate(result["retrieved_chunks"], start=1):
-                    st.markdown(
-                        f"**[{ci}] {ch.get('name')}** • "
-                        f"`{ch.get('category')}` • "
-                        f"*Section:* `{ch.get('section')}` • "
-                        f"*Re-Rank Confidence:* **{ch.get('confidence_pct', '99.1%')}**"
-                    )
-                    st.code(ch.get("text"), language="markdown")
 
     # Save to history
     st.session_state.messages.append({
         "role": "assistant",
         "content": result["answer"],
-        "metadata": meta_info,
         "follow_ups": result.get("follow_ups", [])
     })
     st.rerun()
