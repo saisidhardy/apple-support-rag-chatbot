@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Data cache (keep raw dataset in git, exclude local faiss binary if large, but we can keep small cache)
+data/vector_cache/
+*.faiss
+*.pkl
+
+# Logs and environment
+*.log
+.env
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

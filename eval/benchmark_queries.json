@@ -1,0 +1,50 @@
+[
+  {
+    "id": "TEST-01-FACTUAL",
+    "category": "Factual Lookup",
+    "question": "What is the battery life, charging port, and baseline RAM configuration of the MacBook Air 13-inch M3?",
+    "target_doc_id": "APP-MAC-MBA-M3-13",
+    "expected_keywords": ["18 hours", "MagSafe 3", "16GB"],
+    "is_supported": true
+  },
+  {
+    "id": "TEST-02-COMPARISON",
+    "category": "Comparison Query",
+    "question": "Compare the display refresh rate, optical zoom, and materials between iPhone 16 and iPhone 16 Pro.",
+    "target_doc_id": "APP-IPHONE-16P",
+    "expected_keywords": ["60Hz", "120Hz", "ProMotion", "5x", "Titanium", "Aluminum"],
+    "is_supported": true
+  },
+  {
+    "id": "TEST-03-MULTIPART-POLICY",
+    "category": "Multi-Part Policy Query",
+    "question": "What is Apple standard return window for opened items, and what is the accidental damage deductible for iPhone screen repair under AppleCare+?",
+    "target_doc_id": "APP-POL-RETURN-14DAY",
+    "expected_keywords": ["14", "29", "screen", "return"],
+    "is_supported": true
+  },
+  {
+    "id": "TEST-04-TROUBLESHOOTING",
+    "category": "Hardware Troubleshooting",
+    "question": "How do I force restart a frozen iPhone 16, and can I put my wet phone in rice to dry it out?",
+    "target_doc_id": "APP-TS-FORCE-RESTART",
+    "expected_keywords": ["Volume Up", "Volume Down", "Side button", "rice"],
+    "is_supported": true
+  },
+  {
+    "id": "TEST-05-OUT-OF-SCOPE-COMPETITOR",
+    "category": "Out-of-Scope Fallback",
+    "question": "What are the camera specifications and battery life of the Samsung Galaxy S24 Ultra?",
+    "target_doc_id": null,
+    "expected_keywords": ["sufficient information", "Apple"],
+    "is_supported": false
+  },
+  {
+    "id": "TEST-06-OUT-OF-SCOPE-POLICY",
+    "category": "Unsupported Policy Query",
+    "question": "Does Apple offer free lifetime warranty and replacement for dropped phones with cracked screens without AppleCare+?",
+    "target_doc_id": "APP-POL-WARRANTY-1YR",
+    "expected_keywords": ["not covered", "accidental", "AppleCare+"],
+    "is_supported": false
+  }
+]
