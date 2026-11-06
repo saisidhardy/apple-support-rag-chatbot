@@ -7,6 +7,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      - key: OMP_NUM_THREADS
+        value: "1"
+      - key: MKL_NUM_THREADS
+        value: "1"
       - key: STREAMLIT_SERVER_HEADLESS
         value: "true"
       - key: STREAMLIT_SERVER_ENABLE_CORS
