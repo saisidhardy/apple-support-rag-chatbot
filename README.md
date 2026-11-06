@@ -8,6 +8,10 @@
 [![Ollama](https://img.shields.io/badge/Local%20LLM-Qwen--3.5%204B-darkgreen)](https://ollama.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/saisidhardy/apple-support-rag-chatbot)
+[![Run on Repl.it](https://replit.com/badge/github/saisidhardy/apple-support-rag-chatbot)](https://replit.com/github/saisidhardy/apple-support-rag-chatbot)
+[![Deploy to Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=saisidhardy/apple-support-rag-chatbot&branch=main&mainModule=app.py)
+
 > **Evaluation Track:** Technical Implementation Track  
 > **Course / Project:** RAG-Based Chatbot Group Assignment  
 > **Live Public Deployment:** [https://teaches-additions-snake-mighty.trycloudflare.com](https://teaches-additions-snake-mighty.trycloudflare.com)  
