@@ -10,6 +10,7 @@
 
 > **Evaluation Track:** Technical Implementation Track  
 > **Course / Project:** RAG-Based Chatbot Group Assignment  
+> **Live Public Deployment:** [https://teaches-additions-snake-mighty.trycloudflare.com](https://teaches-additions-snake-mighty.trycloudflare.com)  
 > **Repository:** [https://github.com/saisidhardy/apple-support-rag-chatbot](https://github.com/saisidhardy/apple-support-rag-chatbot)
 
 ---
