@@ -15,11 +15,15 @@ class CrossEncoderReranker:
 
     def _load_model(self):
         if self._model is None:
+            from sentence_transformers import CrossEncoder
+            # Try offline local cache first to prevent remote HF DNS / network disconnect errors
             try:
-                from sentence_transformers import CrossEncoder
-                self._model = CrossEncoder(self.model_name)
-            except Exception as e:
-                self._model = None
+                self._model = CrossEncoder(self.model_name, local_files_only=True)
+            except Exception:
+                try:
+                    self._model = CrossEncoder(self.model_name)
+                except Exception:
+                    self._model = None
 
     def _sigmoid(self, x: float) -> float:
         # Standard sigmoid calibration into [0, 1] probability
